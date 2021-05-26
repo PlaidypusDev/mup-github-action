@@ -7,9 +7,6 @@ inputs:
     meteor_deploy_path:
         description: "The relative path to Meteor's .deploy directory"
         required: true
-    gpg_key:
-        description: "The GPG key to unlock the repository with"
-        required: true
 runs:
     using: "composite"
     steps:

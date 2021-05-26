@@ -4,7 +4,6 @@
 # First parameter is the MUP command to run. Either "DEPLOY" or "SETUP"
 mode=$1;
 meteor_deploy_path=$2;
-gpg_key=$3
 
 echo "Running MUP GitHub action"
 
@@ -20,25 +19,6 @@ if [ "${meteor_deploy_path}" = "" ]; then
 	exit 1
 fi
 
-# Check GPG key
-if [ "${gpg_key}" = "" ]; then
-	echo "Invalid GPG key passed!"
-	exit 1
-fi
-
-echo $gpg_key > keyfile.gpg
-
-# # Instal git crypt
-echo "Installing git crypt...."
-pwd
-ls
-cd ..
-wget https://www.agwa.name/projects/git-crypt/downloads/git-crypt-0.6.0.tar.gz
-tar -xf git-crypt-0.6.0.tar.gz
-cd git-crypt-0.6.0
-make
-make install PREFIX=/usr/local
-
 # # Install meteor
 echo "Installing Meteor...."
 pwd
@@ -48,24 +28,6 @@ export METEOR_ALLOW_SUPERUSER=true
 
 # # Go back to root level
 cd ..
-pwd
-ls
-
-# # Get GPG key
-echo "Importing GPG key...."
-echo -e $gpg_key > keyfile.gpg
-cat keyfile.gpg
-gpg --import ./keyfile.gpg
-gpg --list-secret-keys
-pwd
-ls
-cd build
-pwd
-ls
-
-# # Unlock rpeo
-echo "Unlocking repository...."
-git-crypt unlock
 pwd
 ls
 
