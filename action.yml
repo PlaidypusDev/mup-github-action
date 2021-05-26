@@ -1,11 +1,17 @@
 name: "MUP Deploy"
 description: "Deploy a Meteor application using Meteor Up"
 inputs:
-    environment:
-        description: 'The environment to deploy the app to. Either "STAGING" or "PRODUCTION".'
+    mode:
+        description: 'The MUP script to run. Either "DEPLOY" or "SETUP"'
+        required: true
+    meteor_deploy_path:
+        description: "The relative path to Meteor's .deploy directory"
+        required: true
+    gpg_key:
+        description: "The GPG key to unlock the repository with"
         required: true
 runs:
     using: "composite"
     steps:
-        - run: chmod +x ${{github.action_path}}/install.sh && ${{github.action_path}}/install.sh
+        - run: chmod +x ${{github.action_path}}/install.sh && sh ${{github.action_path}}/install.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.gpg_key }}
           shell: bash
