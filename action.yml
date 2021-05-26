@@ -1,0 +1,11 @@
+name: "MUP Deploy"
+description: "Deploy a Meteor application using Meteor Up"
+inputs:
+    environment:
+        description: 'The environment to deploy the app to. Either "STAGING" or "PRODUCTION".'
+        required: true
+runs:
+    using: "composite"
+    steps:
+        - run: ./${{github.action_path}}/install.sh
+          shell: bash
