@@ -7,5 +7,5 @@ inputs:
 runs:
     using: "composite"
     steps:
-        - run: ${{github.action_path}}/install.sh
+        - run: chmod +x ${{github.action_path}}/install.sh && ${{github.action_path}}/install.sh
           shell: bash
