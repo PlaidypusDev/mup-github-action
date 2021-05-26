@@ -7,5 +7,9 @@ inputs:
 runs:
     using: "composite"
     steps:
-        - run: ./${{github.action_path}}/install.sh
+        - run: ls
+          shell: bash
+        - run: pwd
+          shell: bash
+        - run: .${{github.action_path}}/install.sh
           shell: bash
