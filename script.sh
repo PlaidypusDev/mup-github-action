@@ -61,13 +61,13 @@ elif [ "${node_package_manager}" = "YARN" ]; then
 fi
 
 # Install mup
-echo "Instaling MUP...."
+echo "Installing MUP...."
 # if [ "${node_package_manager}" = "NPM" ]; then
 # 	npm install -g mup
 # elif [ "${node_package_manager}" = "YARN" ]; then
 # 	yarn global add mup
 # fi
-npm install -g mup
+sudo npm install -g mup
 
 
 # CD into meteor deploy directory
