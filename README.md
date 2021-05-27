@@ -9,8 +9,8 @@ jobs:
     deploy_to_staging:
         runs-on: ubuntu-latest
         name: Deploy Meteor application to staging
-        # Note: The MUP action does not handle git-crypt and SSH key management itself.
-        # That is why this example includes a step for SSH keys and a step for git-crypt.
+        # Note: The MUP action does not handle git-crypt and SSH key management.
+        # That is why this example includes an action for SSH keys and an action for git-crypt.
         steps:
             - uses: actions/checkout@v2
             - name: Install SSH key
