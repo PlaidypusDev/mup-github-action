@@ -73,6 +73,8 @@ cd $meteor_deploy_path
 pwd
 ls
 
+mup --help
+
 # Running specified command
 if [ "${mode}" = "DEPLOY" ]; then
 	echo "Deploy"
