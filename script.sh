@@ -10,7 +10,7 @@ meteor_deploy_path=$2;
 node_package_manager=$3
 repository_path=$4
 
-echo "Running MUP GitHub action"
+echo "Running MUP GitHub action..."
 
 # Check mode
 if [ "${mode}" != "DEPLOY" ] && [ "${mode}" != "SETUP" ]; then
@@ -40,7 +40,7 @@ fi
 cd ~/
 
 # Install meteor
-echo "Installing Meteor...."
+echo "Installing Meteor..."
 curl https://install.meteor.com/ | sh
 export METEOR_ALLOW_SUPERUSER=true
 
@@ -48,7 +48,7 @@ export METEOR_ALLOW_SUPERUSER=true
 cd $repository_path
 
 # Install dependenices
-echo "Installing dependencies...."
+echo "Installing dependencies..."
 if [ "${node_package_manager}" = "NPM" ]; then
 	npm ci
 elif [ "${node_package_manager}" = "YARN" ]; then
@@ -56,7 +56,7 @@ elif [ "${node_package_manager}" = "YARN" ]; then
 fi
 
 # Install mup
-echo "Installing MUP...."
+echo "Installing MUP..."
 sudo npm install -g mup
 
 # CD into meteor deploy directory
