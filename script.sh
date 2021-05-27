@@ -37,8 +37,8 @@ if [ "${repository_path}" = "" ]; then
 fi
 
 ls ~/.ssh
-echo "$(~/.ssh/id_rsa)"
-echo "$(~/.ssh/known_hosts)"
+sudo echo "$(~/.ssh/id_rsa)"
+sudo echo "$(~/.ssh/known_hosts)"
 
 # # Go to the root level
 # cd ~/
