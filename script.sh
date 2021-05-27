@@ -36,42 +36,37 @@ if [ "${repository_path}" = "" ]; then
 	exit 1
 fi
 
-ls ~/.ssh
-sudo echo "$(~/.ssh/id_rsa)"
-sudo echo "$(~/.ssh/known_hosts)"
+# Go to the root level
+cd ~/
 
-# # Go to the root level
-# cd ~/
+# Install meteor
+echo "Installing Meteor...."
+curl https://install.meteor.com/ | sh
+export METEOR_ALLOW_SUPERUSER=true
 
-# # Install meteor
-# echo "Installing Meteor...."
-# curl https://install.meteor.com/ | sh
-# export METEOR_ALLOW_SUPERUSER=true
+# # Go back to the project
+cd $repository_path
 
-# # # Go back to the project
-# echo "${repository_path}"
-# cd $repository_path
+# Install dependenices
+echo "Installing dependencies...."
+if [ "${node_package_manager}" = "NPM" ]; then
+	npm ci
+elif [ "${node_package_manager}" = "YARN" ]; then
+	yarn install --frozen-lockfile
+fi
 
-# # Install dependenices
-# echo "Installing dependencies...."
-# if [ "${node_package_manager}" = "NPM" ]; then
-# 	npm ci
-# elif [ "${node_package_manager}" = "YARN" ]; then
-# 	yarn install --frozen-lockfile
-# fi
+# Install mup
+echo "Installing MUP...."
+sudo npm install -g mup
 
-# # Install mup
-# echo "Installing MUP...."
-# sudo npm install -g mup
+# CD into meteor deploy directory
+cd $meteor_deploy_path
 
-# # CD into meteor deploy directory
-# cd $meteor_deploy_path
-
-# # Running specified command
-# if [ "${mode}" = "DEPLOY" ]; then
-# 	echo "Deploying using config from ${meteor_deploy_path}..."
-# 	# mup deploy --verbose
-# elif [ "${mode}" = "SETUP" ]; then
-# 	echo "Setting up using config from ${meteor_deploy_path}..."
-# 	# mup setup --verbose
-# fi
+# Running specified command
+if [ "${mode}" = "DEPLOY" ]; then
+	echo "Deploying using config from ${meteor_deploy_path}..."
+	mup deploy --verbose
+elif [ "${mode}" = "SETUP" ]; then
+	echo "Setting up using config from ${meteor_deploy_path}..."
+	mup setup --verbose
+fi
