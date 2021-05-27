@@ -2,8 +2,11 @@
 
 # Using positional parameters
 # First parameter is the MUP command to run. Either "DEPLOY" or "SETUP"
+# Second parameter is the meteor deploy path
+# Third parameter is the node package manager to use. Either "NPM" or "YARN"
 mode=$1;
 meteor_deploy_path=$2;
+node_package_manager=$3
 
 echo "Running MUP GitHub action"
 
@@ -19,25 +22,43 @@ if [ "${meteor_deploy_path}" = "" ]; then
 	exit 1
 fi
 
-# # Install meteor
+# Check node package manager
+if [ "${node_package_manager}" != "NPM" ] && [ "${node_package_manager}" != "YARN" ]; then
+	echo "Invalid node package manager passed! Expected 'NPM' or 'YARN' but received '${node_package_manager}'"
+	exit 1
+fi
+
+# Go to the root level
+cd ~/
+
+# Install meteor
 echo "Installing Meteor...."
 pwd
 ls
 curl https://install.meteor.com/ | sh
 export METEOR_ALLOW_SUPERUSER=true
 
-# # Go back to root level
-cd ..
+# # Go back to the project
+echo "${github.workspace}"
+cd ${github.workspace}
 pwd
 ls
 
-# # Install meteor and mup
-echo "Instaling MUP...."
-npm install --global mup
-
-# # Install dependenices
+# Install dependenices
 echo "Installing dependencies...."
-npm ci
+if [ "${node_package_manager}" = "NPM" ]; then
+	npm ci
+elif [ "${node_package_manager}" = "YARN" ]; then
+	yarn install --frozen-lockfile
+fi
+
+# Install mup
+echo "Instaling MUP...."
+if [ "${node_package_manager}" = "NPM" ]; then
+	npm install -g mup
+elif [ "${node_package_manager}" = "YARN" ]; then
+	yarn global add mup
+fi
 
 # CD into meteor deploy directory
 cd $meteor_deploy_path

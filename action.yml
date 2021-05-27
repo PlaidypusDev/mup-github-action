@@ -7,8 +7,11 @@ inputs:
     meteor_deploy_path:
         description: "The relative path to Meteor's .deploy directory"
         required: true
+    package_manager:
+        description: 'The node package manager to use. Either "NPM" or "YARN"'
+        required: true
 runs:
     using: "composite"
     steps:
-        - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.gpg_key }}
+        - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.package_manager }}
           shell: bash
