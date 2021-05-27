@@ -62,12 +62,13 @@ fi
 
 # Install mup
 echo "Instaling MUP...."
-if [ "${node_package_manager}" = "NPM" ]; then
-	npm install -g mup
-elif [ "${node_package_manager}" = "YARN" ]; then
-	yarn global add mup
-	echo "::add-path::$(yarn global bin)"
-fi
+# if [ "${node_package_manager}" = "NPM" ]; then
+# 	npm install -g mup
+# elif [ "${node_package_manager}" = "YARN" ]; then
+# 	yarn global add mup
+# fi
+npm install -g mup
+
 
 # CD into meteor deploy directory
 cd $meteor_deploy_path
