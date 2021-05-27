@@ -41,16 +41,12 @@ cd ~/
 
 # Install meteor
 echo "Installing Meteor...."
-pwd
-ls
 curl https://install.meteor.com/ | sh
 export METEOR_ALLOW_SUPERUSER=true
 
 # # Go back to the project
 echo "${repository_path}"
 cd $repository_path
-pwd
-ls
 
 # Install dependenices
 echo "Installing dependencies...."
@@ -62,24 +58,16 @@ fi
 
 # Install mup
 echo "Installing MUP...."
-# if [ "${node_package_manager}" = "NPM" ]; then
-# 	npm install -g mup
-# elif [ "${node_package_manager}" = "YARN" ]; then
-# 	yarn global add mup
-# fi
 sudo npm install -g mup
-
 
 # CD into meteor deploy directory
 cd $meteor_deploy_path
-pwd
-ls
-
-mup --help
 
 # Running specified command
 if [ "${mode}" = "DEPLOY" ]; then
-	echo "Deploy"
+	echo "Deploying using config from ${meteor_deploy_path}..."
+	mup deploy --verbose
 elif [ "${mode}" = "SETUP" ]; then
-	echo "Setup"
+	echo "Setting up using config from ${meteor_deploy_path}..."
+	mup setup --verbose
 fi
