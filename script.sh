@@ -4,9 +4,11 @@
 # First parameter is the MUP command to run. Either "DEPLOY" or "SETUP"
 # Second parameter is the meteor deploy path
 # Third parameter is the node package manager to use. Either "NPM" or "YARN"
+# Fourth parameter is the absolute path of the repository
 mode=$1;
 meteor_deploy_path=$2;
 node_package_manager=$3
+repository_path=$4
 
 echo "Running MUP GitHub action"
 
@@ -28,6 +30,12 @@ if [ "${node_package_manager}" != "NPM" ] && [ "${node_package_manager}" != "YAR
 	exit 1
 fi
 
+# Check repository path
+if [ "${repository_path}" = "" ]; then
+	echo "Invalid repository path passed!"
+	exit 1
+fi
+
 # Go to the root level
 cd ~/
 
@@ -39,8 +47,8 @@ curl https://install.meteor.com/ | sh
 export METEOR_ALLOW_SUPERUSER=true
 
 # # Go back to the project
-echo "${github.workspace}"
-cd ${github.workspace}
+echo "${repository_path}"
+cd $repository_path
 pwd
 ls
 
