@@ -26,7 +26,7 @@ jobs:
                   GIT_CRYPT_KEY: ${{ secrets.GPG_KEY }}
             # MUP GitHub action
             - id: "deploy_to_staging"
-              uses: PlaidypusDev/mup-github-action@v0.21
+              uses: PlaidypusDev/mup-github-action@v1.0
               with:
                   mode: "DEPLOY"
                   meteor_deploy_path: ".deploy/staging"
