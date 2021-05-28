@@ -37,4 +37,4 @@ jobs:
 
 -   `mode` - Specifies what the MUP CLI should do. Either `SETUP` or `DEPLOY`.
 -   `meteor_deploy_path` - The relative path to the folder containing `mup.js` and `settings.json`. This is how you decide what environment to run MUP for.
--   `package_manager` - What node package manager your Meteor project uses. Either `YARN` or `NPM`.
+-   `package_manager` - Which node package manager your Meteor project uses. Either `YARN` or `NPM`.
