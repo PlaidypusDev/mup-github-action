@@ -2,7 +2,7 @@ name: "MUP Deploy"
 description: "Deploy a Meteor application using Meteor Up"
 inputs:
     mode:
-        description: 'The MUP script to run. Either "DEPLOY" or "SETUP"'
+        description: 'The MUP script to run. Either "DEPLOY", "SETUP", or "RESTART"'
         required: true
     meteor_deploy_path:
         description: "The relative path to Meteor's .deploy directory"

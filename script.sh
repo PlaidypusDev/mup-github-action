@@ -13,8 +13,8 @@ repository_path=$4
 echo "Running MUP GitHub action..."
 
 # Check mode
-if [ "${mode}" != "DEPLOY" ] && [ "${mode}" != "SETUP" ]; then
-	echo "Invalid mode passed! Expected 'DEPLOY' or 'SETUP' but received '${mode}'"
+if [ "${mode}" != "DEPLOY" ] && [ "${mode}" != "SETUP" ] && [ "${mode}" != "RESTART" ]; then
+	echo "Invalid mode passed! Expected 'DEPLOY', 'SETUP', or 'RESTART' but received '${mode}'"
 	exit 1
 fi
 
@@ -69,4 +69,7 @@ if [ "${mode}" = "DEPLOY" ]; then
 elif [ "${mode}" = "SETUP" ]; then
 	echo "Setting up using config from ${meteor_deploy_path}..."
 	mup setup --verbose
+elif [ "${mode}" = "RESTART" ]; then
+	echo "Restarting..."
+	mup restart
 fi
