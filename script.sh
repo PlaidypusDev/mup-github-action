@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Using positional parameters
-# First parameter is the MUP command to run. Either "DEPLOY" or "SETUP"
+# First parameter is the MUP command to run. Either "DEPLOY", "SETUP", or "RESTART"
 # Second parameter is the meteor deploy path
 # Third parameter is the node package manager to use. Either "NPM" or "YARN"
 # Fourth parameter is the absolute path of the repository
