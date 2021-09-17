@@ -45,7 +45,7 @@ echo "Installing Meteor..."
 curl https://install.meteor.com/ | sh
 export METEOR_ALLOW_SUPERUSER=true
 
-# # Go back to the project
+# Go to the project
 cd $repository_path
 cd $project_path
 
@@ -61,7 +61,10 @@ fi
 echo "Installing MUP..."
 sudo npm install -g mup
 
-# CD into meteor deploy directory
+# Go back to the project root
+cd $repository_path
+
+# cd into meteor deploy directory
 cd $meteor_deploy_path
 
 # Running specified command
