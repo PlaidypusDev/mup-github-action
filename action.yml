@@ -10,8 +10,12 @@ inputs:
     package_manager:
         description: 'The node package manager to use. Either "NPM" or "YARN"'
         required: true
+    project_path:
+        description: "The path to the folder that contains the package.json for the Meteor app. Defaults to the current directory."
+        required: false
+        default: "."
 runs:
     using: "composite"
     steps:
-        - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.package_manager }} ${{ github.workspace }}
+        - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.package_manager }} ${{ github.workspace }} ${{ input.project_path }}
           shell: bash

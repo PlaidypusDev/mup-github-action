@@ -9,6 +9,7 @@ mode=$1;
 meteor_deploy_path=$2;
 node_package_manager=$3
 repository_path=$4
+project_path=$5
 
 echo "Running MUP GitHub action..."
 
@@ -46,6 +47,10 @@ export METEOR_ALLOW_SUPERUSER=true
 
 # # Go back to the project
 cd $repository_path
+cd $project_path
+
+ls
+pwd
 
 # Install dependenices
 echo "Installing dependencies..."
