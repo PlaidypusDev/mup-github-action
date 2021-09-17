@@ -49,9 +49,6 @@ export METEOR_ALLOW_SUPERUSER=true
 cd $repository_path
 cd $project_path
 
-ls
-pwd
-
 # Install dependenices
 echo "Installing dependencies..."
 if [ "${node_package_manager}" = "NPM" ]; then
