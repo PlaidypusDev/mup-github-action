@@ -17,5 +17,5 @@ inputs:
 runs:
     using: "composite"
     steps:
-        - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.package_manager }} ${{ github.workspace }} ${{ input.project_path }}
+        - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.package_manager }} ${{ github.workspace }} ${{ inputs.project_path }}
           shell: bash
