@@ -26,7 +26,7 @@ if [ "${meteor_deploy_path}" = "" ]; then
 fi
 
 # Check node package manager
-if [ "${node_package_manager}" != "NPM" ] && [ "${node_package_manager}" != "YARN" ]; then
+if [ "${node_package_manager}" != "NPM" ] && [ "${node_package_manager}" != "PNPM" ] && [ "${node_package_manager}" != "YARN" ]; then
 	echo "Invalid node package manager passed! Expected 'NPM' or 'YARN' but received '${node_package_manager}'"
 	exit 1
 fi
@@ -53,6 +53,11 @@ cd $project_path
 echo "Installing dependencies..."
 if [ "${node_package_manager}" = "NPM" ]; then
 	npm ci
+elif [ "${node_package_manager}" = "PNPM" ]; then
+	# Install PNPM
+	npm install -g pnpm
+
+	pnpm install --frozen-lockfile
 elif [ "${node_package_manager}" = "YARN" ]; then
 	yarn install --frozen-lockfile
 fi
