@@ -10,6 +10,7 @@ meteor_deploy_path=$2;
 node_package_manager=$3
 repository_path=$4
 project_path=$5
+run_setup_on_deploy=$6
 
 echo "Running MUP GitHub action..."
 
@@ -75,6 +76,14 @@ cd $meteor_deploy_path
 # Running specified command
 if [ "${mode}" = "DEPLOY" ]; then
 	echo "Deploying using config from ${meteor_deploy_path}..."
+
+	if ["${run_setup_on_deploy}" = "true"]; then
+		echo "Setting up using config from ${meteor_deploy_path}..."
+
+		mup setup --verbose
+	fi
+
+	echo "Running mup deploy..."
 	mup deploy --verbose
 elif [ "${mode}" = "SETUP" ]; then
 	echo "Setting up using config from ${meteor_deploy_path}..."
