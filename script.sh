@@ -11,6 +11,7 @@ node_package_manager=$3
 repository_path=$4
 project_path=$5
 run_setup_on_deploy=$6
+mup_version=$7
 
 echo "Running MUP GitHub action..."
 
@@ -64,8 +65,8 @@ elif [ "${node_package_manager}" = "YARN" ]; then
 fi
 
 # Install mup
-echo "Installing MUP..."
-sudo npm install -g mup
+echo "Installing MUP@${mup_version}..."
+sudo npm install -g mup@$mup_version
 
 # Go back to the project root
 cd $repository_path

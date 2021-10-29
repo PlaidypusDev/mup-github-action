@@ -41,3 +41,4 @@ jobs:
 -   `package_manager` - Which node package manager your Meteor project uses. Either `YARN`, `PNPM`, or `NPM`.
 -   `project_path` - (Optional. Defaults to `.`). Define a path to go to for the meteor project relative. Useful for a repo that contains the source code for a Meteor app and a mobile app.
 -   `run_setup_on_deploy` - (Optional, Defaults to `false`). If `mup setup` should run on `mup deploy`.
+-   `mup_version` - (Optional, Defaults to `latest`). The version of MUP to install.
