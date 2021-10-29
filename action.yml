@@ -18,8 +18,12 @@ inputs:
         description: "Should mup setup be run on every mup deploy"
         required: false
         default: "false"
+    mup_version:
+        description: "The version of mup to install. Defaults to latest"
+        required: false
+        default: "latest"
 runs:
     using: "composite"
     steps:
-        - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.package_manager }} ${{ github.workspace }} ${{ inputs.project_path }} ${{ inputs.run_setup_on_deploy }}
+        - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.package_manager }} ${{ github.workspace }} ${{ inputs.project_path }} ${{ inputs.run_setup_on_deploy }} ${{ inputs.mup_version }}
           shell: bash
