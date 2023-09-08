@@ -42,7 +42,7 @@ cd ~/
 
 # Install meteor
 echo "Installing Meteor..."
-curl https://install.meteor.com/ | sh
+curl https://install.meteor.com/\?release\=2.13.0 | sh
 export METEOR_ALLOW_SUPERUSER=true
 
 # Go to the project
