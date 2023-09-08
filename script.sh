@@ -42,6 +42,8 @@ cd ~/
 
 # Install meteor
 echo "Installing Meteor..."
+# Using version 2.13.0 temporarily due to this issue - https://github.com/meteor/meteor/issues/12771
+# Need to change back to https://install.meteor.com/ when resolved to stay on the latest version
 curl https://install.meteor.com/\?release\=2.13.0 | sh
 export METEOR_ALLOW_SUPERUSER=true
 
