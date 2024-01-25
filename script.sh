@@ -5,11 +5,14 @@
 # Second parameter is the meteor deploy path
 # Third parameter is the node package manager to use. Either "NPM" or "YARN"
 # Fourth parameter is the absolute path of the repository
+# fifth parameter is the folder that contains the package.json for the Meteor app. Defaults to the current directory.
+# sixth parameter is a string of comma separated server names for the action to target. Ex: 'one,two'
 mode=$1;
 meteor_deploy_path=$2;
 node_package_manager=$3
 repository_path=$4
 project_path=$5
+servers=$6
 
 echo "Running MUP GitHub action..."
 
@@ -37,14 +40,18 @@ if [ "${repository_path}" = "" ]; then
 	exit 1
 fi
 
+servers_option=""
+
+if [ "${servers}" != "" ]; then
+    servers_option="--servers ${servers}"
+fi
+
 # Go to the root level
 cd ~/
 
 # Install meteor
 echo "Installing Meteor..."
-# Using version 2.12 temporarily due to this issue - https://github.com/meteor/meteor/issues/12771
-# Need to change back to https://install.meteor.com/ when resolved to stay on the latest version
-curl https://install.meteor.com\?release=2.12 | sh
+curl https://install.meteor.com\ | sh
 export METEOR_ALLOW_SUPERUSER=true
 
 # Go to the project
@@ -72,11 +79,11 @@ cd $meteor_deploy_path
 # Running specified command
 if [ "${mode}" = "DEPLOY" ]; then
 	echo "Deploying using config from ${meteor_deploy_path}..."
-	mup deploy --verbose
+	mup deploy --verbose $servers_option
 elif [ "${mode}" = "SETUP" ]; then
 	echo "Setting up using config from ${meteor_deploy_path}..."
-	mup setup --verbose
+	mup setup --verbose $servers_option
 elif [ "${mode}" = "RESTART" ]; then
 	echo "Restarting..."
-	mup restart
+	mup restart $servers_option
 fi

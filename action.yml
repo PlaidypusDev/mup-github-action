@@ -1,21 +1,25 @@
 name: "MUP Deploy"
 description: "Deploy a Meteor application using Meteor Up"
 inputs:
-    mode:
-        description: 'The MUP script to run. Either "DEPLOY", "SETUP", or "RESTART"'
-        required: true
-    meteor_deploy_path:
-        description: "The relative path to Meteor's .deploy directory"
-        required: true
-    package_manager:
-        description: 'The node package manager to use. Either "NPM" or "YARN"'
-        required: true
-    project_path:
-        description: "The path to the folder that contains the package.json for the Meteor app. Defaults to the current directory."
-        required: false
-        default: "."
+  mode:
+    description: 'The MUP script to run. Either "DEPLOY", "SETUP", or "RESTART"'
+    required: true
+  meteor_deploy_path:
+    description: "The relative path to Meteor's .deploy directory"
+    required: true
+  package_manager:
+    description: 'The node package manager to use. Either "NPM" or "YARN"'
+    required: true
+  project_path:
+    description: "The path to the folder that contains the package.json for the Meteor app. Defaults to the current directory."
+    required: false
+    default: "."
+  servers:
+    description: "Comma separated server names for the action to target. Ex: 'one,two'"
+    required: false
+    default: ""
 runs:
-    using: "composite"
-    steps:
-        - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.package_manager }} ${{ github.workspace }} ${{ inputs.project_path }}
-          shell: bash
+  using: "composite"
+  steps:
+    - run: chmod +x ${{github.action_path}}/script.sh && sh ${{github.action_path}}/script.sh ${{ inputs.mode }} ${{ inputs.meteor_deploy_path }} ${{ inputs.package_manager }} ${{ github.workspace }} ${{ inputs.project_path }}
+      shell: bash
