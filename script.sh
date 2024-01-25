@@ -79,11 +79,11 @@ cd $meteor_deploy_path
 # Running specified command
 if [ "${mode}" = "DEPLOY" ]; then
 	echo "Deploying using config from ${meteor_deploy_path}..."
-	mup deploy --verbose "$servers_option"
+	mup deploy --verbose $servers_option
 elif [ "${mode}" = "SETUP" ]; then
 	echo "Setting up using config from ${meteor_deploy_path}..."
-	mup setup --verbose "$servers_option"
+	mup setup --verbose $servers_option
 elif [ "${mode}" = "RESTART" ]; then
 	echo "Restarting..."
-	mup restart "$servers_option"
+	mup restart $servers_option
 fi
