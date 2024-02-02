@@ -6,13 +6,13 @@
 # Third parameter is the node package manager to use. Either "NPM" or "YARN"
 # Fourth parameter is the absolute path of the repository
 # fifth parameter is the folder that contains the package.json for the Meteor app. Defaults to the current directory.
-# sixth parameter is a string of comma separated server names for the action to target. Ex: 'one,two'
+# sixth parameter is a string of the name of the server for the action to target. Example: two
 mode=$1;
 meteor_deploy_path=$2;
 node_package_manager=$3
 repository_path=$4
 project_path=$5
-servers=$6
+server=$6
 
 echo "Running MUP GitHub action..."
 
@@ -42,8 +42,8 @@ fi
 
 servers_option=""
 
-if [ "${servers}" != "" ]; then
-    servers_option="--servers ${servers}"
+if [ "${server}" != "" ]; then
+    servers_option="--servers ${server}"
 fi
 
 # Go to the root level
