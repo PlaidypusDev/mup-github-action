@@ -49,10 +49,43 @@ fi
 # Go to the root level
 cd ~/
 
-# Install meteor
-echo "Installing Meteor..."
-curl https://install.meteor.com\ | sh
 export METEOR_ALLOW_SUPERUSER=true
+
+# Install meteor
+# RESTART doesn't build the app, so it doesn't need Meteor. Skipping the install keeps
+# a restart from replacing the Meteor version that deploys depend on.
+if [ "${mode}" = "RESTART" ]; then
+	echo "Skipping Meteor install for RESTART"
+else
+	# Install the Meteor release the project pins in .meteor/release, not the latest
+	meteor_release_file="${repository_path}/${project_path}/.meteor/release"
+	meteor_release=$(sed -n 's/^METEOR@//p' "${meteor_release_file}" 2>/dev/null | tr -d '[:space:]')
+
+	if [ "${meteor_release}" = "" ]; then
+		echo "ERROR: No Meteor release found in ${meteor_release_file}. Check the project_path input."
+		exit 1
+	fi
+
+	echo "Installing Meteor ${meteor_release} (from ${meteor_release_file})..."
+	meteor_installer=$(curl -fsSL "https://install.meteor.com/?release=${meteor_release}")
+	if [ $? -ne 0 ] || [ "${meteor_installer}" = "" ]; then
+		echo "ERROR: Could not download the Meteor ${meteor_release} installer."
+		exit 1
+	fi
+	if ! printf '%s\n' "${meteor_installer}" | sh; then
+		echo "ERROR: Meteor ${meteor_release} install failed."
+		exit 1
+	fi
+
+	# Make sure the installed Meteor actually runs on this machine and is the pinned version
+	installed_version=$("$HOME/.meteor/meteor" --version 2>&1)
+	if ! printf '%s\n' "${installed_version}" | grep -Fqx "Meteor ${meteor_release}"; then
+		echo "ERROR: Expected 'Meteor ${meteor_release}' after install but got:"
+		echo "${installed_version}"
+		exit 1
+	fi
+	echo "Meteor ${meteor_release} installed and verified."
+fi
 
 # Go to the project
 cd $repository_path
